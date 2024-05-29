@@ -9,8 +9,9 @@ def scrape_page(page_url):
     quotes = soup.find_all('div', class_='quote')
     return quotes
 
-# URL de base
+# URL de base et tags désirés
 base_url = "https://quotes.toscrape.com"
+desired_tags = {'love', 'inspirational', 'life', 'humor'}
 
 # Préparation pour l'écriture dans un fichier CSV
 results = []
@@ -20,7 +21,9 @@ for i in range(1, 6):  # Pour les cinq premières pages
         text = quote.find('span', class_='text').text
         author = quote.find('small', class_='author').text
         tags = [tag.text for tag in quote.find_all('a', class_='tag')]
-        results.append([text, author, ', '.join(tags)])
+        # Filtrer les citations contenant au moins un des tags désirés
+        if any(tag in desired_tags for tag in tags):
+            results.append([text, author, ', '.join(tags)])
 
 # Écriture des résultats dans un fichier CSV
 with open('results.csv', 'w', newline='', encoding='utf-8') as file:
@@ -29,4 +32,3 @@ with open('results.csv', 'w', newline='', encoding='utf-8') as file:
     writer.writerows(results)
 
 print("Le fichier CSV a été créé avec succès.")
-
