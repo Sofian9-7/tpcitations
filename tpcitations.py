@@ -12,6 +12,7 @@ def scrape_page(page_url):
 # URL de base et tags désirés
 base_url = "https://quotes.toscrape.com"
 desired_tags = {'love', 'inspirational', 'life', 'humor'}
+token = "EYZBhcIFjLqXedHbRPsoWKwUlgxSrDfAtONGunMzayVTmkQJCvpi"  # Token spécifié
 
 # Préparation pour l'écriture dans un fichier CSV
 results = []
@@ -23,12 +24,12 @@ for i in range(1, 6):  # Pour les cinq premières pages
         tags = [tag.text for tag in quote.find_all('a', class_='tag')]
         # Filtrer les citations contenant au moins un des tags désirés
         if any(tag in desired_tags for tag in tags):
-            results.append([text, author, ', '.join(tags)])
+            results.append([text, author, ', '.join(tags), token])
 
 # Écriture des résultats dans un fichier CSV
 with open('results.csv', 'w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
-    writer.writerow(['Text', 'Author', 'Tags'])
+    writer.writerow(['Text', 'Author', 'Tags', 'Token'])  # Ajout de l'en-tête Token
     writer.writerows(results)
 
 print("Le fichier CSV a été créé avec succès.")
