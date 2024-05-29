@@ -13,7 +13,7 @@ def scrape_page(page_url):
 base_url = "https://quotes.toscrape.com"
 desired_tags = {'love', 'inspirational', 'life', 'humor'}
 extra_tag = 'books'
-token = "EYZBhcIFjLqXedHbRPsoWKwUlgxSrDfAtONGunMzayVTmkQJCvpi"  # Token spécifié
+token = "EYZBhcIFjLqXedHbRPsoWKwUlgxSrDfAtONGunMzayVTmkQJCvpi"
 
 # Préparation pour l'écriture dans un fichier CSV
 results = []
@@ -47,4 +47,3 @@ with open('results.csv', 'w', newline='', encoding='utf-8') as file:
     writer.writerows(results)
 
 print("Le fichier CSV a été créé avec succès.")
-
